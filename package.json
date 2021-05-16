@@ -21,6 +21,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "dotenv": "^9.0.2",
+    "microsoft-cognitiveservices-speech-sdk": "^1.16.0",
     "telegraf": "^4.3.0"
   },
   "devDependencies": {
@@ -51,7 +52,8 @@
       "plugin:jest/recommended"
     ],
     "rules": {
-      "semi": "error"
+      "semi": "error",
+      "indent": ["error", 2]
     }
   },
   "nodemonConfig": {
