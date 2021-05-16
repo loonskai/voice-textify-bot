@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "dev": "ts-node ./src/index.ts",
+    "dev": "nodemon",
     "build": "tsc"
   },
   "repository": {
@@ -18,6 +18,11 @@
     "url": "https://github.com/loonskai/voice-textify/issues"
   },
   "homepage": "https://github.com/loonskai/voice-textify#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "dotenv": "^9.0.2",
+    "telegraf": "^4.3.0"
+  },
   "devDependencies": {
     "@types/jest": "^26.0.23",
     "@typescript-eslint/eslint-plugin": "^4.23.0",
@@ -25,6 +30,7 @@
     "eslint": "^7.26.0",
     "eslint-plugin-jest": "^24.3.6",
     "jest": "^26.6.3",
+    "nodemon": "^2.0.7",
     "ts-jest": "^26.5.6",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.4"
@@ -48,8 +54,14 @@
       "semi": "error"
     }
   },
-  "dependencies": {
-    "dotenv": "^9.0.2",
-    "telegraf": "^4.3.0"
+  "nodemonConfig": {
+    "watch": [
+      "src"
+    ],
+    "ext": "ts,json",
+    "ignore": [
+      "**/*.test.ts"
+    ],
+    "exec": "ts-node ./src/index.ts"
   }
 }
