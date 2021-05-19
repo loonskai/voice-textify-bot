@@ -2,7 +2,7 @@
   "name": "voice-textify-bot",
   "version": "1.0.0",
   "description": "Telegram voice-to-text bot written in Node.js",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "jest",
     "dev": "nodemon",
@@ -53,7 +53,14 @@
     ],
     "rules": {
       "semi": "error",
-      "indent": ["error", 2]
+      "indent": [
+        "error",
+        2
+      ],
+      "quotes": [
+        "error",
+        "single"
+      ]
     }
   },
   "nodemonConfig": {

@@ -1,3 +1,4 @@
+import { spawn } from 'child_process';
 import { Transform, pipeline } from 'stream';
 import { promisify } from 'util';
 import { Telegraf } from 'telegraf';
@@ -22,24 +23,30 @@ bot.on('voice', async ctx => {
   try {
     const { href: fileUrl } = await ctx.telegram.getFileLink(ctx.message.voice.file_id);
     const res = await axios(fileUrl, { responseType: 'stream' });
+    const output = new Transform({
+      transform(arrayBuffer, encoding, callback) {
+        pushStream.write(arrayBuffer.slice());
+        callback();
+      },
+    });
+
+    const opusdec = spawn('opusdec', ['--force-wav', '--rate', '16000', '-', '-']);
 
     await promisePipeline(
       res.data,
-      new Transform({
-        transform(arrayBuffer, encoding, callback) {
-          console.log(arrayBuffer);
-          pushStream.write(arrayBuffer.slice());
-          callback();
-        },
-      })
+      opusdec.stdin,
     );
-    pushStream.close();
 
+    await promisePipeline(
+      opusdec.stdout,
+      output,
+    );
+
+    pushStream.close();
     const audioConfig = AudioConfig.fromStreamInput(pushStream);
     const recognizer = new SpeechRecognizer(speechConfig, audioConfig);
     recognizer.recognizeOnceAsync((result) => {
-      console.log(result);
-      console.log(result.text);
+      ctx.telegram.sendMessage(ctx.message.chat.id, result.text);
       recognizer.close();
     }, err => {
       console.trace('Error', err);
