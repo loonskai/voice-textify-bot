@@ -39,8 +39,8 @@ bot.on('voice', async ctx => {
     pushStream.close();
     const audioConfig = AudioConfig.fromStreamInput(pushStream);
     const recognizer = new SpeechRecognizer(speechConfig, audioConfig);
-    recognizer.recognizeOnceAsync((result) => {
-      ctx.reply(result.text, { reply_to_message_id: ctx.message.message_id });
+    recognizer.recognizeOnceAsync(result => {
+      ctx.reply(result.text || 'Don\'t be shy, tell me something', { reply_to_message_id: ctx.message.message_id });
       recognizer.close();
     }, err => {
       console.trace('Error', err);
