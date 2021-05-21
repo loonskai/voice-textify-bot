@@ -15,10 +15,6 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
 const speechConfig = SpeechConfig.fromSubscription(process.env.SUBSCRIPTION_KEY, 'eastus');
 speechConfig.speechRecognitionLanguage = 'en-US';
 
-bot.on('text', ctx => {
-  ctx.telegram.sendMessage(ctx.message.chat.id, `Hello ${ctx.state.role}`);
-});
-
 bot.on('voice', async ctx => {
   try {
     ctx.telegram.sendMessage(ctx.message.chat.id, 'Processing voice message ...');
