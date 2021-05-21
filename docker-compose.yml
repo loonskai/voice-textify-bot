@@ -4,3 +4,6 @@ services:
     build:
       context: .
       target: prod
+      environment: 
+        - BOT_TOKEN
+        - SUBSCRIPTION_KEY
