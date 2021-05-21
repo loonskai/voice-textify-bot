@@ -10,7 +10,7 @@
     "typeRoots": ["./node_modules/@types", "./typings"]
   },
   "include": [
-    "src/**/*"
+    "src/**/*.ts"
   ],
   "exclude": [
     "node_modules",
