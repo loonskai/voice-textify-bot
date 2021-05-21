@@ -6,7 +6,7 @@ SUBSCRIPTION_KEY=<MICROSOFT_ASURE_SUBSCRIPTION_KEY>
 
 ## Development
 ```
-docker-compose up --build
+docker-compose -f docker-compose.dev up --build
 ```
 
 ## Production
