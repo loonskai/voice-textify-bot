@@ -29,10 +29,7 @@ const getSpeechRecognize = (config: SpeechConfig) => async ({
     },
   });
 
-  await promisePipeline(inputStream, transformStream, outputStream);
-  pushStream.close();
-
-  return new Promise((resolve, reject) => {
+  const recognizeOnceAsyncPromise = new Promise<string>((resolve, reject) => {
     recognizer.recognizeOnceAsync(result => {
       recognizer.close();
       resolve(result.text);
@@ -41,14 +38,22 @@ const getSpeechRecognize = (config: SpeechConfig) => async ({
       reject(err);
     });
   });
+
+  await promisePipeline(inputStream, transformStream, outputStream);
+  pushStream.close();
+  return recognizeOnceAsyncPromise;
 };
 
 export const configureRecognizer = ({ 
   key,
   region,
   language
-}: RecognizerConfig): (args: RecognizeArgs) => Promise<string> => {
-  const speechConfig = SpeechConfig.fromSubscription(key, region);
-  speechConfig.speechRecognitionLanguage = language;
-  return getSpeechRecognize(speechConfig);
+}: RecognizerConfig): ((args: RecognizeArgs) => Promise<string>) | void => {
+  try {
+    const speechConfig = SpeechConfig.fromSubscription(key, region);
+    speechConfig.speechRecognitionLanguage = language;
+    return getSpeechRecognize(speechConfig);
+  } catch (error) {
+    console.error('Recognition service error', error);
+  }
 };

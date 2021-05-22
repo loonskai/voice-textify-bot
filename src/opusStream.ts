@@ -15,5 +15,9 @@ export const opusStream = ({ forceWav = false, rate }: Args): Duplex => {
   args = args.concat(['-', '-']);
 
   const opusdec = spawn('opusdec', args);
+  opusdec.on('error', err => {
+    console.error('Decoding error', err);
+  });
+
   return duplexify(opusdec.stdin, opusdec.stdout);
 }; 
