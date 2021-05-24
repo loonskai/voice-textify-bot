@@ -3,11 +3,6 @@
   "version": "1.0.0",
   "description": "Telegram voice-to-text bot written in Node.js",
   "main": "dist/index.js",
-  "scripts": {
-    "test": "jest",
-    "dev": "nodemon",
-    "build": "tsc"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/loonskai/voice-textify.git"
@@ -27,31 +22,22 @@
   },
   "devDependencies": {
     "@types/duplexify": "^3.6.0",
-    "@types/jest": "^26.0.23",
     "@typescript-eslint/eslint-plugin": "^4.23.0",
     "@typescript-eslint/parser": "^4.23.0",
     "eslint": "^7.26.0",
-    "eslint-plugin-jest": "^24.3.6",
-    "jest": "^26.6.3",
     "nodemon": "^2.0.7",
-    "ts-jest": "^26.5.6",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.4"
-  },
-  "jest": {
-    "preset": "ts-jest"
   },
   "eslintConfig": {
     "root": true,
     "parser": "@typescript-eslint/parser",
     "plugins": [
-      "@typescript-eslint",
-      "jest"
+      "@typescript-eslint"
     ],
     "extends": [
       "eslint:recommended",
-      "plugin:@typescript-eslint/recommended",
-      "plugin:jest/recommended"
+      "plugin:@typescript-eslint/recommended"
     ],
     "rules": {
       "semi": "error",
@@ -70,9 +56,6 @@
       "src"
     ],
     "ext": "ts,json",
-    "ignore": [
-      "**/*.test.ts"
-    ],
     "exec": "ts-node ./src/index.ts"
   }
 }
